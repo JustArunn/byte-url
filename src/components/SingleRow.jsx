@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { LuCopy } from "react-icons/lu";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../utils/Fetch";
 
 const SingleRow = ({ url, index, _delete }) => {
   return (
@@ -10,20 +11,15 @@ const SingleRow = ({ url, index, _delete }) => {
       <td className="hidden lg:inline-block text-center p-1">{index}</td>
 
       <td className="border text-center p-1 text-blue-500">
-        <Link
-          to={`${import.meta.env.VITE_BASE_URL}/${url.shortId}`}
-          target="_blank"
-        >
-          {import.meta.env.VITE_BASE_URL}/{url.shortId}
+        <Link to={`${BASE_URL}/${url.shortId}`} target="_blank">
+          {BASE_URL}/{url.shortId}
         </Link>
       </td>
 
       <td className="border p-1 text-green-500 hover:scale-105">
         <LuCopy
           onClick={() => {
-            navigator.clipboard.writeText(
-              `${import.meta.env.VITE_BASE_URL}/${url.shortId}`
-            );
+            navigator.clipboard.writeText(`${BASE_URL}/${url.shortId}`);
             toast.success("copied");
           }}
           className="text-center ml-3 text-xl"

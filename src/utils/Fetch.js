@@ -1,6 +1,7 @@
+export const BASE_URL = "https://byte-url.onrender.com";
 export const Fetch = async (url, method, formData) => {
   try {
-    const data = await fetch(`/api${url}`, {
+    const data = await fetch(`${BASE_URL}${url}`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
