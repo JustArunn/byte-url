@@ -4,5 +4,6 @@ import Navbar from "./Navbar";
 import Protected from "./Protected";
 import SingleRow from "./SingleRow";
 import UrlTables from "./UrlTables";
+import Loader from "./Loader";
 
-export { CreateUrl, Footer, Navbar, Protected, SingleRow, UrlTables };
+export { CreateUrl, Footer, Navbar, Protected, SingleRow, UrlTables, Loader };

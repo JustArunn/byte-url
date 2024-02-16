@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useLoading } from "../context";
+import { Loader } from "../components";
 
 const Login = () => {
   const {
@@ -24,7 +25,7 @@ const Login = () => {
     <div className="w-full h-full flex flex-col justify-center items-center">
       <div className="border p-4 rounded-md">
         <h1 className="text-center font-bold text-2xl">
-          {loading ? "Loading.." : "Login"}
+          {loading ? <Loader /> : "Login"}
         </h1>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(login)}>
           <div className="flex flex-col">

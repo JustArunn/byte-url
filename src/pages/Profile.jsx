@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import UrlTables from "../components/UrlTables";
 import { useAuth, useUser } from "../context";
 import CreateUrl from "../components/CreateUrl";
 
 const Profile = () => {
-  const [count, setCount] = useState(0);
   const { profile } = useAuth();
 
-  useEffect(() => {
+  React.useEffect(() => {
     profile();
-  }, [count]);
-
+  }, []);
+  
   const { user } = useUser();
 
   return (
@@ -22,12 +21,6 @@ const Profile = () => {
         </h2>
         <div className="flex gap-2">
           <CreateUrl />
-          <button
-            className="border py-1 rounded-md px-4"
-            onClick={() => setCount(count + 1)}
-          >
-            refresh
-          </button>
         </div>
         <div>
           <UrlTables />

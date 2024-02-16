@@ -53,7 +53,9 @@ export const Provider = ({ children }) => {
         } else {
           toast.error(user.message);
           localStorage.removeItem("token");
-          navigate("/login");
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
         }
       } else {
         navigate("/login");

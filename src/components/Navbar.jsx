@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="text-2xl font-semibold hover:text-blue-800">
         <Link to={"/"}>
           <h1 className="flex justify-center items-center gap-4">
-            <span className="hidden lg:flex ">Short</span>{" "}
+            <span className="hidden lg:flex ">Byte</span>{" "}
             <FaUnlink className="text-2xl" />
           </h1>
         </Link>
