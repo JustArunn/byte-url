@@ -1,34 +1,43 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+function Home() {
+
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
+
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      {localStorage.getItem("token") ? (
-        <Link
-          className="border text-center px-20 py-2 rounded-md"
-          to={"/profile"}
-        >
-          <button>Profile</button>
-        </Link>
-      ) : (
-        <div className="flex flex-col gap-2">
-          <Link
-            className="border text-center px-20 py-2 rounded-md"
-            to={"/signup"}
-          >
-            <button>Signup</button>
-          </Link>
-          <Link
-            className="border text-center px-20 py-2 rounded-md"
-            to={"/login"}
-          >
-            <button>Login</button>
-          </Link>
-        </div>
-      )}
+    <div className="w-full h-[calc(100%-60px)] flex justify-center items-center flex-col gap-4">
+      <h1 className="text-2xl font-bold">
+        Welcome !{" "}
+        {user?.name && <span className="text-blue-500">{user.name}</span>}
+      </h1>
+      <div className="w-full">
+        {token ? (
+          <div className="flex justify-center items-center">
+            <button className=" px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949] w-[50%] md:w-[20%]">
+              <Link to={"/profile"}>Profile</Link>
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center font-semibold w-full gap-2">
+            <Link
+              className="text-center px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949] w-[50%] md:w-[20%]"
+              to={"/login"}
+            >
+              Login
+            </Link>
+            <Link
+              className="text-center px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949] w-[50%] md:w-[20%]"
+              to={"/signup"}
+            >
+              Signup
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
-};
+}
 
 export default Home;

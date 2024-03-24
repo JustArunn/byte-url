@@ -1,20 +1,19 @@
-export const BASE_URL = "https://byte-url.onrender.com";
-export const Fetch = async (url, method, formData) => {
+export async function Fetch(endpoint, method, formData, token) {
   try {
-    const data = await fetch(`${BASE_URL}${url}`, {
+    const data = await fetch(endpoint, {
       headers: {
         Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
-      method: `${method}`,
-      body: method == "GET" ? undefined : JSON.stringify({ ...formData }),
+      method: method,
+      body: formData ? JSON.stringify({ ...formData }) : null,
     });
-
-    const jsonData = await data.json();
+    const jsonData = data.json();
     return jsonData;
   } catch (err) {
-    console.log("Error : ", err.message);
+    console.log("Error in Fetch.............", err);
     return { err };
   }
-};
+}

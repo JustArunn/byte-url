@@ -1,57 +1,66 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useLoading } from "../context";
-import { Loader } from "../components";
+import { signup } from "../services/auth";
+import { useDispatch } from "react-redux";
 
-const Signup = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+function Signup() {
+  const [formData, setFormData] = React.useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  const { loading } = useLoading();
-  const { signup } = useAuth();
+  function resetForm() {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
+  }
+
   const navigate = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/profile");
-    }
-  }, []);
+  const dispatch = useDispatch();
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(signup(formData, navigate, resetForm));
+  }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
-      <div className="border p-4 rounded-md">
-        <h1 className="text-center font-bold text-2xl">
-          {loading ? <Loader/> : "Signup"}
-        </h1>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(signup)}>
+    <div className="w-full h-[calc(100%-60px)]">
+      <div className="w-full h-full flex gap-4 justify-center items-center flex-col">
+        <h1 className="font-bold text-3xl ">Signup</h1>
+        <form
+          className="min-w-[calc(50%)] p-4 border border-black flex flex-col justify-center items-center gap-4 rounded-md md:min-w-[20%]"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col">
             <label htmlFor="name">Name</label>
             <input
               type="text"
               name="name"
               id="name"
-              autoComplete="true"
-              placeholder="Arun..."
-              {...register("name", { required: true })}
-              className="px-3 py-1 rounded-md "
+              placeholder="Sellmon Bhoi"
+              className=" border placeholder:pl-3 py-1 px-2 placeholder:text-[#0009] border-black rounded-md"
+              value={formData.name}
+              onChange={handleChange}
             />
-            {errors.name && <span>name is required</span>}
           </div>
           <div className="flex flex-col">
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
               id="email"
-              autoComplete="true"
-              placeholder="jungle@mangle.com"
-              {...register("email", { required: true })}
-              className="px-3 py-1 rounded-md "
+              placeholder="example@mail.com"
+              className=" border placeholder:pl-3 py-1 px-2 placeholder:text-[#0009] border-black rounded-md"
+              value={formData.email}
+              onChange={handleChange}
             />
-            {errors.email && <span>email is required</span>}
           </div>
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
@@ -59,27 +68,30 @@ const Signup = () => {
               type="password"
               name="password"
               id="password"
-              autoComplete="true"
-              placeholder="Password@123"
-              {...register("password", { required: true })}
-              className="px-3 py-1 rounded-md "
+              placeholder="SecR3t Password"
+              className=" border placeholder:pl-3 py-1 px-2 placeholder:text-[#0009] border-black rounded-md"
+              value={formData.password}
+              onChange={handleChange}
             />
-            {errors.password && <span>password is required</span>}
           </div>
-          <button className="border py-2 rounded-md " type="submit">
+          <button
+            type="submit"
+            className=" px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949]"
+          >
             Signup
           </button>
         </form>
-        <hr className="mt-5" />
-        <div className="mt-2">
-          <span>Already have an account ? </span>
-          <Link className="text-blue-800 font-semibold" to={"/login"}>
-            Login
-          </Link>
+        <div>
+          <p>
+            already have an account{" "}
+            <Link className="text-blue-900 font-semibold" to={"/login"}>
+              Login
+            </Link>
+          </p>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Signup;

@@ -1,48 +1,47 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useService } from "../context";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createURL } from "../services/operations";
 
-const CreateUrl = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+function CreateUrl() {
+  const [formData, setFormData] = useState({
+    url: "",
+  });
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
 
-  const { createUrl } = useService();
+  function resetForm() {
+    setFormData({
+      url: "",
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(createURL(formData, token, resetForm));
+  }
 
   return (
-    <div>
+    <div className=" w-full flex justify-center items-center py-4 border border-black rounded-md md:w-[70%]">
       <form
-        className=" border p-1 rounded-md flex justify-center items-center gap-1"
-        onSubmit={handleSubmit((url) => {
-          createUrl(url);
-          reset();
-        })}
+        className="flex justify-center items-center gap-2"
+        onSubmit={handleSubmit}
       >
-        <div className="flex justify-center items-center gap-2 flex-col lg:flex-row">
-          <label className="hidden lg:flex font-light" htmlFor="url">
-            URL
-          </label>
-          <input
-            type="text"
-            name="url"
-            id="url"
-            placeholder="Enter URL..."
-            {...register("url", { required: true })}
-            className="px-3 py-1 rounded-md "
-          />
-          {errors.url && <span className="text-red-500">URL is required</span>}
-        </div>
-        <div>
-          <button className="border py-1 rounded-md px-4" type="submit">
-            create
-          </button>
+        <label htmlFor="url">URL</label>
+        <input
+          type="text"
+          name="url"
+          id="url"
+          placeholder="Enter URL here"
+          className=" border placeholder:pl-3 py-1 border-black rounded-md"
+          value={formData.url}
+          onChange={(e) => setFormData({ [e.target.name]: e.target.value })}
+        />
+        <div className="py-1 px-3 rounded-md bg-[#e84949] md:bg-transparent md:border md:border-[#e84949] md:hover:bg-[#e84949]">
+          <button type="submit">Create</button>
         </div>
       </form>
     </div>
   );
-};
+}
 
 export default CreateUrl;

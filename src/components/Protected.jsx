@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const Protected = ({ children }) => {
-  const navigate = useNavigate();
-  const auth = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!auth) {
-      navigate("/");
-    }
-  }, []);
-  return <>{children}</>;
-};
+function Protected({ children }) {
+  const token = localStorage.getItem("token");
+  if (token) {
+    return children;
+  } else {
+    return <Navigate to={"/login"} />;
+  }
+}
 
 export default Protected;

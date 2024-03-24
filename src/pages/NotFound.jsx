@@ -1,15 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-const NotFound = () => {
+function NotFound() {
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col gap-4">
-      <h1 className="font-bold text-2xl ">404 : Not Found</h1>
-      <Link className="border text-center px-20 py-2 rounded-md" to={"/"}>
-        <button>Home</button>
-      </Link>
+    <div className="h-full w-full flex justify-center items-center">
+      <h1 className="text-4xl font-bold">404 - Not Found !</h1>
     </div>
   );
-};
+}
 
 export default NotFound;

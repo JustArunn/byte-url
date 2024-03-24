@@ -1,49 +1,52 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useLoading } from "../context";
-import { Loader } from "../components";
+import { login } from "../services/auth/index";
+import { useDispatch } from "react-redux";
 
-const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const { loading } = useLoading();
-  const { login } = useAuth();
+function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/profile");
-    }
-  }, []);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  function resetForm() {
+    setFormData({
+      email: "",
+      password: "",
+    });
+  }
+
+  function handleChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(login(formData, navigate, resetForm));
+  }
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center">
-      <div className="border p-4 rounded-md">
-        <h1 className="text-center font-bold text-2xl">
-          {loading ? <Loader /> : "Login"}
-        </h1>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(login)}>
+    <div className="w-full h-[calc(100%-60px)]">
+      <div className="w-full h-full flex gap-4 justify-center items-center flex-col">
+        <h1 className="font-bold text-3xl ">Login</h1>
+        <form
+          className="min-w-[calc(50%)] p-4 border border-black flex flex-col justify-center items-center gap-4 rounded-md md:min-w-[20%]"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col">
             <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
               id="email"
-              autoComplete="true"
-              placeholder="jungle@mangle.com"
-              {...register("email", { required: true })}
-              className="px-3 py-1 rounded-md "
+              placeholder="example@mail.com"
+              className=" border placeholder:pl-3 py-1 placeholder:text-[#0009] border-black rounded-md"
+              value={formData.email}
+              onChange={handleChange}
             />
-            {errors.email && (
-              <span className="text-red-500 text-center">
-                email is required
-              </span>
-            )}
           </div>
           <div className="flex flex-col">
             <label htmlFor="password">Password</label>
@@ -51,31 +54,33 @@ const Login = () => {
               type="password"
               name="password"
               id="password"
-              autoComplete="true"
-              placeholder="Password@123"
-              {...register("password", { required: true })}
-              className="px-3 py-1 rounded-md"
+              placeholder="SecR3t Password"
+              className=" border placeholder:pl-3 py-1 placeholder:text-[#0009] border-black rounded-md"
+              value={formData.password}
+              onChange={handleChange}
             />
-            {errors.password && (
-              <span className="text-red-500 text-center">
-                password is required
-              </span>
-            )}
           </div>
-          <button className="border py-2 rounded-md " type="submit">
+          <button
+            type="submit"
+            className=" px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949]"
+          >
             Login
           </button>
         </form>
-        <hr className="mt-5" />
-        <div className="mt-2">
-          <span>Don't have an account ? </span>
-          <Link className="text-blue-800 font-semibold" to={"/signup"}>
-            Signup
-          </Link>
+        <div>
+          <p>
+            don&apos;t have an account?{" "}
+            <Link
+              className="text-blue-900 font-semibold hover:text-blue-950"
+              to={"/signup"}
+            >
+              Signup
+            </Link>
+          </p>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
