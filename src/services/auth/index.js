@@ -14,7 +14,6 @@ export function login(formData, navigate, resetForm) {
     dispatch(setLoading(true));
     const toastId = toast.loading("Loading");
     const { data } = await Fetch(endpoints.LOGIN_API, "POST", formData);
-    console.log("axios data in login.............", data);
     if (data.success) {
       toast.dismiss(toastId);
       resetForm();
