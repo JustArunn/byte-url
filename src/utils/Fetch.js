@@ -17,11 +17,15 @@
 //     return { err };
 //   }
 // }
+
 import axios from "axios";
 const axiosInstance = axios.create({});
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export async function Fetch(endpoint, method, formData, token) {
   try {
     return axiosInstance({
+      baseURL: BASE_URL,
       method: method,
       url: endpoint,
       data: formData,
