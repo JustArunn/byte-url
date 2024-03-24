@@ -14,6 +14,7 @@ export function login(formData, navigate, resetForm) {
     dispatch(setLoading(true));
     const toastId = toast.loading("Loading");
     const { data } = await Fetch(endpoints.LOGIN_API, "POST", formData);
+    console.log("axios data in login.............", data);
     if (data.success) {
       toast.dismiss(toastId);
       resetForm();
@@ -52,7 +53,7 @@ export function signup(formData, navigate, resetForm) {
     dispatch(setLoading(true));
     const toastId = toast.loading("Loading");
 
-    const {data} = await Fetch(endpoints.SINGUP_API, "POST", formData);
+    const { data } = await Fetch(endpoints.SINGUP_API, "POST", formData);
     if (data.success) {
       toast.success(data.message);
       dispatch(setToken(data.token));
@@ -69,7 +70,7 @@ export function signup(formData, navigate, resetForm) {
 
 export function profile(token, navigate) {
   return async (dispatch) => {
-    const {data} = await Fetch(endpoints.PROFILE_API, "GET", null, token);
+    const { data } = await Fetch(endpoints.PROFILE_API, "GET", null, token);
     if (data.success) {
       dispatch(setUser(data.user));
       dispatch(setUrls(data.user.urls));
@@ -86,7 +87,7 @@ export function profile(token, navigate) {
 export function deleteProfile(token, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading");
-    const {data} = await Fetch(
+    const { data } = await Fetch(
       endpoints.DELETE_PROFIE_API,
       "DELETE",
       null,
