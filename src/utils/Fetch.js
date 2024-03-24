@@ -10,7 +10,7 @@ export async function Fetch(endpoint, method, formData, token) {
       method: method,
       body: formData ? JSON.stringify({ ...formData }) : null,
     });
-    const jsonData = data.json();
+    const jsonData = await data.json();
     return jsonData;
   } catch (err) {
     console.log("Error in Fetch.............", err);
