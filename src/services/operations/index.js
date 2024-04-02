@@ -6,12 +6,7 @@ import { addUrl, removeUrl } from "../../Redux/actions";
 export function createURL(formData, token, resetForm) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading");
-    const { data } = await Fetch(
-      endpoints.CREATE_URL_API,
-      "POST",
-      formData,
-      token
-    );
+    const data = await Fetch(endpoints.CREATE_URL_API, "POST", formData, token);
     if (data.success) {
       toast.dismiss(toastId);
       dispatch(addUrl(data.url));
@@ -27,7 +22,7 @@ export function createURL(formData, token, resetForm) {
 export function deleteURL(_id, token) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading");
-    const { data } = await Fetch(
+    const data = await Fetch(
       endpoints.DELETE_URL_API,
       "DELETE",
       { _id: _id },

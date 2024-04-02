@@ -24,7 +24,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export async function Fetch(endpoint, method, formData, token) {
   try {
-    return axiosInstance({
+    const data = await axiosInstance({
       baseURL: BASE_URL,
       method: method,
       url: endpoint,
@@ -34,8 +34,9 @@ export async function Fetch(endpoint, method, formData, token) {
         Authorization: `Bearer ${token}`,
       },
     });
+    return data.data;
   } catch (err) {
-    console.log("Error in Fetch.............", err);
-    return { err };
+    console.log("axios err ", err.response.data);
+    return err.response.data;
   }
 }
