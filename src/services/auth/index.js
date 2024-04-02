@@ -81,13 +81,16 @@ export function profile(token, navigate) {
 export function deleteProfile(token, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading");
-    await fetch(`/api${endpoints.DELETE_PROFIE_API}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    await fetch(
+      `${import.meta.env.VITE_BASE_URL}${endpoints.DELETE_PROFIE_API}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((data) => data.json())
       .then((data) => {
         if (data.success) {
