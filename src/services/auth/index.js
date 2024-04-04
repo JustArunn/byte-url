@@ -81,30 +81,18 @@ export function profile(token, navigate) {
 export function deleteProfile(token, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading");
-    await fetch(
-      `${import.meta.env.VITE_BASE_URL}${endpoints.DELETE_PROFIE_API}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        if (data.success) {
-          toast.dismiss(toastId);
-          toast.error(data.message);
-          dispatch(setLoading(false));
-          dispatch(removeToken());
-          dispatch(setUser(null));
-          dispatch(setUrls(null));
-          navigate("/");
-        } else {
-          toast.dismiss(toastId);
-          toast.error(data.message);
-        }
-      });
+    const data = await Fetch(endpoints.DELETE_PROFIE_API, "DELETE", {}, token);
+    if (data.success) {
+      toast.dismiss(toastId);
+      toast.error(data.message);
+      dispatch(setLoading(false));
+      dispatch(removeToken());
+      dispatch(setUser(null));
+      dispatch(setUrls(null));
+      navigate("/");
+    } else {
+      toast.dismiss(toastId);
+      toast.error(data.message);
+    }
   };
 }
