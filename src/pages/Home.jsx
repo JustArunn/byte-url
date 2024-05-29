@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Home() {
-
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
 
@@ -15,20 +14,20 @@ function Home() {
       <div className="w-full">
         {token ? (
           <div className="flex justify-center items-center">
-            <button className=" px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949] w-[50%] md:w-[20%]">
+            <button className=" px-6 py-2 rounded-md border bg-[#e84949] sm:bg-transparent sm:border-[#e84949] sm:hover:bg-[#e84949] w-[50%] sm:w-[20%]">
               <Link to={"/profile"}>Profile</Link>
             </button>
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center font-semibold w-full gap-2">
             <Link
-              className="text-center px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949] w-[50%] md:w-[20%]"
+              className="text-center px-6 py-2 rounded-md border bg-[#e84949] sm:bg-transparent sm:border-[#e84949] sm:hover:bg-[#e84949] w-[50%] sm:w-[20%]"
               to={"/login"}
             >
               Login
             </Link>
             <Link
-              className="text-center px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949] w-[50%] md:w-[20%]"
+              className="text-center px-6 py-2 rounded-md border bg-[#e84949] sm:bg-transparent sm:border-[#e84949] sm:hover:bg-[#e84949] w-[50%] sm:w-[20%]"
               to={"/signup"}
             >
               Signup

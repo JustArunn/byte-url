@@ -35,7 +35,7 @@ function Signup() {
       <div className="w-full h-full flex gap-4 justify-center items-center flex-col">
         <h1 className="font-bold text-3xl ">Signup</h1>
         <form
-          className="min-w-[calc(50%)] p-4 border border-black flex flex-col justify-center items-center gap-4 rounded-md md:min-w-[20%]"
+          className="min-w-[calc(50%)] p-4 border border-black flex flex-col justify-center items-center gap-4 rounded-md sm:min-w-[20%]"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col">
@@ -76,7 +76,7 @@ function Signup() {
           </div>
           <button
             type="submit"
-            className=" px-6 py-2 rounded-md border bg-[#e84949] md:bg-transparent md:border-[#e84949] md:hover:bg-[#e84949]"
+            className=" px-6 py-2 rounded-md border bg-[#e84949] sm:bg-transparent sm:border-[#e84949] sm:hover:bg-[#e84949]"
           >
             Signup
           </button>

@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { deleteProfile, logout } from "../services/auth";
-import { CgProfile } from "react-icons/cg";
-import { IoIosLogOut } from "react-icons/io";
-import { TiUserDeleteOutline } from "react-icons/ti";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -24,7 +21,7 @@ function Navbar() {
         <Link to={"/"}>
           <h1 className="text-2xl font-bold">BYTE</h1>
         </Link>
-        <div className="hidden md:flex gap-1">
+        <div className="hidden sm:flex gap-1">
           <NavLink
             className={"hover:bg-[#ffffff50] rounded-md px-2 py-1"}
             to={"/"}
@@ -46,46 +43,30 @@ function Navbar() {
         </div>
         <div>
           {token ? (
-            <div className="flex justify-center items-center">
-              <button
-                className=" flex gap-1 px-4 py-2 rounded-md font-semibold hover:bg-[#ffffff50]"
-                onClick={handleDeleteProfile}
-              >
-                <TiUserDeleteOutline
-                  className="border rounded-full border-black"
-                  size={"25px"}
-                />
-                <p className="hidden md:flex">Delete Profile</p>
-              </button>
-
-              <button
-                className="flex gap-1 px-4 py-2 rounded-md font-semibold hover:bg-[#ffffff50]"
+            <div className="flex justify-center items-center gap-2 sm:gap-0">
+              <div
+                className="cursor-pointer px-4 py-2 rounded-md font-semibold bg-[#ffffff50] sm:bg-transparent sm:hover:bg-[#ffffff50]"
                 onClick={handleLogout}
               >
-                <IoIosLogOut size={"25px"} />
-                <p className="hidden md:flex">Logout</p>
-              </button>
-
-              <button
-                onClick={() => navigate("/profile")}
-                className="flex gap-1 px-4 py-2 rounded-md font-semibold hover:bg-[#ffffff50]"
+                Logut
+              </div>
+              <div
+                className="cursor-pointer px-4 py-2 rounded-md font-semibold bg-[#ffffff50] sm:bg-transparent sm:hover:bg-[#ffffff50]"
+                onClick={handleDeleteProfile}
               >
-                {/* <Link to={"/profile"}> */}
-                <CgProfile size={"25px"} />
-                <p className="hidden md:flex">Profile</p>
-                {/* </Link> */}
-              </button>
+                Delete
+              </div>
             </div>
           ) : (
-            <div className="flex justify-center items-center gap-2 md:gap-0">
+            <div className="flex justify-center items-center gap-2 sm:gap-0">
               <Link
-                className=" px-4 py-2 rounded-md font-semibold bg-[#ffffff50] md:bg-transparent md:hover:bg-[#ffffff50]"
+                className=" px-4 py-2 rounded-md font-semibold bg-[#ffffff50] sm:bg-transparent sm:hover:bg-[#ffffff50]"
                 to={"/login"}
               >
                 Login
               </Link>
               <Link
-                className=" px-4 py-2 rounded-md font-semibold bg-[#ffffff50] md:bg-transparent md:hover:bg-[#ffffff50]"
+                className=" px-4 py-2 rounded-md font-semibold bg-[#ffffff50] sm:bg-transparent sm:hover:bg-[#ffffff50]"
                 to={"/signup"}
               >
                 Signup

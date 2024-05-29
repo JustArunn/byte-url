@@ -21,12 +21,14 @@ function CreateUrl() {
   }
 
   return (
-    <div className=" w-full flex justify-center items-center py-4 border border-black rounded-md md:w-[70%]">
+    <div className=" w-full flex justify-center items-center py-4 sm:border border-black rounded-md sm:w-[70%]">
       <form
         className="flex justify-center items-center gap-2"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="url">URL</label>
+        <label className="hidden sm:flex" htmlFor="url">
+          URL
+        </label>
         <input
           type="text"
           name="url"
@@ -36,7 +38,7 @@ function CreateUrl() {
           value={formData.url}
           onChange={(e) => setFormData({ [e.target.name]: e.target.value })}
         />
-        <div className="py-1 px-3 rounded-md bg-[#e84949] md:bg-transparent md:border md:border-[#e84949] md:hover:bg-[#e84949]">
+        <div className="py-1 px-3 rounded-md bg-[#e84949] sm:bg-transparent sm:border sm:border-[#e84949] sm:hover:bg-[#e84949]">
           <button type="submit">Create</button>
         </div>
       </form>

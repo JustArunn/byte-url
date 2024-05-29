@@ -13,18 +13,18 @@ function Profile() {
 
   useEffect(() => {
     dispatch(profile(token, navigate));
-  },[]);
+  }, []);
 
   return (
-    <div className="w-full h-[calc(100%-60px)] ">
-      <h1 className="text-2xl font-bold text-center mt-10">
+    <div className="w-full h-[calc(100%-100px)] ">
+      <h1 className="text-xl sm:text-2xl font-bold text-center m-5">
         Welcome back !{" "}
         {user?.name && <span className="text-[#e84949]">{user.name}</span>}
       </h1>
-      <div className="flex justify-center border mt-10">
+      <div className="flex justify-center mt-5">
         <CreateUrl />
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center ">
         <UrlTable />
       </div>
     </div>
