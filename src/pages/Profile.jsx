@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { profile } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import UrlTable from "../components/UrlTable";
+import Navbar from "../components/Navbar";
+import "./CSS/Profile.css";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -16,15 +18,14 @@ function Profile() {
   }, []);
 
   return (
-    <div className="w-full h-[calc(100%-100px)] ">
-      <h1 className="text-xl sm:text-2xl font-bold text-center m-5">
-        Welcome back !{" "}
-        {user?.name && <span className="text-[#e84949]">{user.name}</span>}
-      </h1>
-      <div className="flex justify-center mt-5">
+    <div className="container1">
+      <div className="inner-container">
+        <Navbar />
+        <h1 className="user-name-container">
+          Welcome back !{" "}
+          {user?.name && <span className="user-name">{user.name}</span>}
+        </h1>
         <CreateUrl />
-      </div>
-      <div className="w-full flex justify-center ">
         <UrlTable />
       </div>
     </div>

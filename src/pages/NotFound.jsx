@@ -1,7 +1,14 @@
+import { DefaultButton } from "@fluentui/react";
+import { Link } from "react-router-dom";
+import "./CSS/NotFound.css";
+
 function NotFound() {
   return (
-    <div className="h-full w-full flex justify-center items-center">
-      <h1 className="text-4xl font-bold">404 - Not Found !</h1>
+    <div className="fullscreen-container">
+      <h1>404 - Not Found !</h1>
+      <Link to="/">
+        <DefaultButton className="default-button">Go to Home</DefaultButton>
+      </Link>
     </div>
   );
 }

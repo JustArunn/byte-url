@@ -1,24 +1,104 @@
 import { useSelector } from "react-redux";
-import TableRow from "./TableRow";
+import {
+  DetailsListLayoutMode,
+  IconButton,
+  ShimmeredDetailsList,
+} from "@fluentui/react";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { deleteURL } from "../services/operations";
 
 function UrlTable() {
-  const { urls } = useSelector((state) => state.urls);
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+  const { urls, isUrlLoading } = useSelector((state) => state.urls);
+
+  function handleCopy(url) {
+    navigator.clipboard.writeText(url);
+    toast.success("copied");
+  }
+
+  function handleDeleteUrl(_id) {
+    dispatch(deleteURL(_id, token));
+  }
+
+  const columns = [
+    {
+      key: "column2234",
+      name: "Serial",
+      fieldName: "index",
+      minWidth: 100,
+      maxWidth: 200,
+      isResizable: true,
+    },
+    {
+      key: "column1",
+      name: "URL",
+      fieldName: "url",
+      minWidth: 250,
+      maxWidth: 300,
+      isResizable: true,
+      onRender: (item) => (
+        <Link target="_blank" to={item.url}>
+          {item.url}
+        </Link>
+      ),
+    },
+    {
+      key: "column2",
+      name: "Clicks",
+      fieldName: "clicks",
+      minWidth: 100,
+      maxWidth: 200,
+      isResizable: true,
+    },
+    {
+      key: "column3",
+      name: "Create At",
+      fieldName: "createdAt",
+      minWidth: 100,
+      maxWidth: 200,
+      isResizable: true,
+    },
+    {
+      key: "column4",
+      name: "Delete",
+      minWidth: 100,
+      maxWidth: 200,
+      onRender: (item) => (
+        <IconButton
+          iconProps={{ iconName: "Delete" }}
+          title="Delete"
+          ariaLabel="Delete"
+          onClick={() => handleDeleteUrl(item._id)}
+        />
+      ),
+    },
+    {
+      key: "column5",
+      name: "Copy",
+      minWidth: 100,
+      maxWidth: 200,
+      onRender: (item) => (
+        <IconButton
+          iconProps={{ iconName: "Copy" }}
+          title="Copy"
+          ariaLabel="Copy"
+          onClick={() => handleCopy(item.url)}
+        />
+      ),
+    },
+  ];
+
   return (
-    <div className="w-full h-full mt-10 rounded-lg flex justify-center items-center sm:w-[70%] mb-10 sm:mb-0 ml-2 mr-2">
-      <table className="w-full h-full rounded">
-        <thead>
-          <tr>
-            <td className="border border-black px-1 py-1">URL</td>
-            <td className="border border-black px-1 py-1">Clicks</td>
-            <td className="border border-black px-1 py-1">Copy</td>
-            <td className="border border-black px-1 py-1">Delete</td>
-          </tr>
-        </thead>
-        <tbody className="border border-black">
-          {urls?.length > 0 &&
-            urls.map((url) => <TableRow key={url.shortId} url={url} />)}
-        </tbody>
-      </table>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <ShimmeredDetailsList
+        columns={columns}
+        items={urls || []}
+        layoutMode={DetailsListLayoutMode.justified}
+        enableShimmer={isUrlLoading}
+      />
     </div>
   );
 }

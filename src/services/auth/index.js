@@ -6,8 +6,10 @@ import {
   setUser,
   setUrls,
   removeToken,
+  setUrlLoading
 } from "../../Redux/actions";
 import toast from "react-hot-toast";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export function login(formData, navigate, resetForm) {
   return async (dispatch) => {
@@ -62,13 +64,29 @@ export function signup(formData, navigate, resetForm) {
   };
 }
 
+const getDetailListFormat = (urls)=>{
+  const ListItems = urls.map((url, index) => ({
+    _id: url._id,
+    key: url._id,
+    index: index + 1,
+    url: `${BASE_URL}/${url.shortId}`,
+    clicks: url.clicks,
+    createdAt: url.createdAt.split("T")[0],
+  }));
+  return ListItems;
+}
+
 export function profile(token, navigate) {
   return async (dispatch) => {
+    dispatch(setUrlLoading(true))
     const data = await Fetch(endpoints.PROFILE_API, "GET", null, token);
     if (data.success) {
       dispatch(setUser(data.user));
-      dispatch(setUrls(data.user.urls));
+      
+      dispatch(setUrls(getDetailListFormat(data.user.urls)));
+      dispatch(setUrlLoading(false))
     } else {
+      dispatch(setUrlLoading(false))
       dispatch(setLoading(false));
       dispatch(removeToken());
       dispatch(setUser(null));

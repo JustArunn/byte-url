@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createURL } from "../services/operations";
+import { PrimaryButton, TextField } from "@fluentui/react";
 
 function CreateUrl() {
   const [formData, setFormData] = useState({
@@ -21,8 +22,23 @@ function CreateUrl() {
   }
 
   return (
-    <div className=" w-full flex justify-center items-center py-4 sm:border border-black rounded-md sm:w-[70%]">
-      <form
+    <div >
+     <div>
+     <form onSubmit={handleSubmit}>
+        <div style={{display:"flex",gap:"10px"}}>
+        <TextField
+          type="url"
+          name="url"
+          placeholder="Enter URL here"
+          value={formData.url}
+          onChange={(e)=>setFormData({[e.target.name]:e.target.value})}
+          styles={{root:{width:"100%"}}}
+        />
+        <PrimaryButton type="submit">Create</PrimaryButton>
+        </div>
+      </form>
+     </div>
+      {/* <form
         className="flex justify-center items-center gap-2"
         onSubmit={handleSubmit}
       >
@@ -41,7 +57,7 @@ function CreateUrl() {
         <div className="py-1 px-3 rounded-md bg-[#e84949] sm:bg-transparent sm:border sm:border-[#e84949] sm:hover:bg-[#e84949]">
           <button type="submit">Create</button>
         </div>
-      </form>
+      </form> */}
     </div>
   );
 }

@@ -1,0 +1,19 @@
+.fullscreen-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.column-gap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.primary-button {
+  width: 200px;
+}

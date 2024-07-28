@@ -6,13 +6,13 @@ import Protected from "./components/Protected.jsx";
 import Profile from "./pages/Profile.jsx";
 import OpenRoute from "./components/OpenRoute.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import Navbar from "./components/Navbar.jsx";
+import { initializeIcons } from "@fluentui/react/lib/Icons";
+initializeIcons();
 
 function App() {
   return (
-    <div className="h-screen w-screen flex justify-center">
-      <div className="w-full sm:w-11/12  h-full overflow-x-hidden">
-        <Navbar />
+    <div>
+      <div>
         <Routes>
           <Route index element={<Home />} />
           <Route

@@ -2,6 +2,19 @@ import toast from "react-hot-toast";
 import { Fetch } from "../../utils/Fetch";
 import { endpoints } from "../apis";
 import { addUrl, removeUrl } from "../../Redux/actions";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+export const getDetailListFormat = (urls)=>{
+  const ListItems = urls.map((url, index) => ({
+    _id: url._id,
+    key: url._id,
+    index: index + 1,
+    url: `${BASE_URL}/${url.shortId}`,
+    clicks: url.clicks,
+    createdAt: url.createdAt.split("T")[0],
+  }));
+  return ListItems;
+}
 
 export function createURL(formData, token, resetForm) {
   return async (dispatch) => {
@@ -9,7 +22,8 @@ export function createURL(formData, token, resetForm) {
     const data = await Fetch(endpoints.CREATE_URL_API, "POST", formData, token);
     if (data.success) {
       toast.dismiss(toastId);
-      dispatch(addUrl(data.url));
+      const listUrl = getDetailListFormat([data.url]);
+      dispatch(addUrl(listUrl[0]));
       toast.success(data.message);
       resetForm();
     } else {
