@@ -1,8 +1,9 @@
 .container1 {
-  width: 99vw;
+  width: 98vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f0f0f5;
 }
 
 .inner-container {

@@ -25,7 +25,7 @@ function CreateUrl() {
     <div>
       <div>
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div style={{ display: "flex", gap: "10px",marginBottom:"20px" }}>
             <TextField
               autoComplete="off"
               type="url"
