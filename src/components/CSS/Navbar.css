@@ -1,0 +1,21 @@
+.header-container {
+  background-color: rgb(0, 112, 220);
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header-title {
+  color: #fff;
+  font-weight: 200;
+}
+
+.icon-container {
+  display: flex;
+  gap: 20px;
+}
+
+.icon-button {
+  color: #fff;
+}

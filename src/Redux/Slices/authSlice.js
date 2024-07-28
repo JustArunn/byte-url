@@ -3,18 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    token: localStorage.getItem("token")
-      ? JSON.parse(localStorage.getItem("token"))
+    token: localStorage.getItem("byte-url-auth-token")
+      ? JSON.parse(localStorage.getItem("byte-url-auth-token"))
       : "",
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
-      localStorage.setItem("token", JSON.stringify(action.payload));
+      localStorage.setItem("byte-url-auth-token", JSON.stringify(action.payload));
     },
     removeToken(state) {
       state.token = "";
-      localStorage.removeItem("token");
+      localStorage.removeItem("byte-url-auth-token");
     },
   },
 });

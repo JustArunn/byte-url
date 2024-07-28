@@ -6,28 +6,40 @@ import {
   setUser,
   setUrls,
   removeToken,
-  setUrlLoading
+  setUrlLoading,
 } from "../../Redux/actions";
-import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export function login(formData, navigate, resetForm) {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    const toastId = toast.loading("Loading");
+    Swal.showLoading();
     const data = await Fetch(endpoints.LOGIN_API, "POST", formData);
 
     if (!data.success) {
-      toast.dismiss(toastId);
-      toast.error(data.message);
+      Swal.hideLoading();
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       resetForm();
       return;
     } else {
-      toast.dismiss(toastId);
+      Swal.hideLoading();
       resetForm();
       dispatch(setToken(data.token));
       dispatch(setUser(data.user));
-      toast.success(data.message);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/profile");
     }
   };
@@ -35,7 +47,13 @@ export function login(formData, navigate, resetForm) {
 
 export function logout(navigate) {
   return (dispatch) => {
-    toast.error("Logged out");
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Logged out",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     dispatch(setLoading(false));
     dispatch(removeToken());
     dispatch(setUser(null));
@@ -47,24 +65,36 @@ export function logout(navigate) {
 export function signup(formData, navigate, resetForm) {
   return async (dispatch) => {
     dispatch(setLoading(true));
-    const toastId = toast.loading("Loading");
+    Swal.showLoading();
 
     const data = await Fetch(endpoints.SINGUP_API, "POST", formData);
     if (data.success) {
-      toast.success(data.message);
+      Swal.hideLoading();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       dispatch(setToken(data.token));
-      toast.dismiss(toastId);
       resetForm();
       navigate("/profile");
     } else {
-      toast.dismiss(toastId);
-      toast.error(data.message);
+      Swal.hideLoading();
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       resetForm();
     }
   };
 }
 
-const getDetailListFormat = (urls)=>{
+const getDetailListFormat = (urls) => {
   const ListItems = urls.map((url, index) => ({
     _id: url._id,
     key: url._id,
@@ -74,19 +104,20 @@ const getDetailListFormat = (urls)=>{
     createdAt: url.createdAt.split("T")[0],
   }));
   return ListItems;
-}
+};
 
 export function profile(token, navigate) {
   return async (dispatch) => {
-    dispatch(setUrlLoading(true))
+    dispatch(setUrlLoading(true));
     const data = await Fetch(endpoints.PROFILE_API, "GET", null, token);
+
     if (data.success) {
       dispatch(setUser(data.user));
-      
+
       dispatch(setUrls(getDetailListFormat(data.user.urls)));
-      dispatch(setUrlLoading(false))
+      dispatch(setUrlLoading(false));
     } else {
-      dispatch(setUrlLoading(false))
+      dispatch(setUrlLoading(false));
       dispatch(setLoading(false));
       dispatch(removeToken());
       dispatch(setUser(null));
@@ -98,19 +129,31 @@ export function profile(token, navigate) {
 
 export function deleteProfile(token, navigate) {
   return async (dispatch) => {
-    const toastId = toast.loading("Loading");
+    Swal.showLoading();
     const data = await Fetch(endpoints.DELETE_PROFIE_API, "DELETE", {}, token);
     if (data.success) {
-      toast.dismiss(toastId);
-      toast.error(data.message);
+      Swal.hideLoading();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
       dispatch(setLoading(false));
       dispatch(removeToken());
       dispatch(setUser(null));
       dispatch(setUrls(null));
       navigate("/");
     } else {
-      toast.dismiss(toastId);
-      toast.error(data.message);
+      Swal.hideLoading();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 }

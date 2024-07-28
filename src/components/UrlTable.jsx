@@ -2,12 +2,12 @@ import { useSelector } from "react-redux";
 import {
   DetailsListLayoutMode,
   IconButton,
-  ShimmeredDetailsList,
+  ShimmeredDetailsList as DetailsList,
 } from "@fluentui/react";
 import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { deleteURL } from "../services/operations";
+import Swal from "sweetalert2";
 
 function UrlTable() {
   const dispatch = useDispatch();
@@ -16,11 +16,37 @@ function UrlTable() {
 
   function handleCopy(url) {
     navigator.clipboard.writeText(url);
-    toast.success("copied");
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "copied",
+      showConfirmButton: false,
+      timer: 1000,
+    });
   }
 
   function handleDeleteUrl(_id) {
-    dispatch(deleteURL(_id, token));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgb(0,112,220)",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteURL(_id, token)).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "URL has been deleted.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+      }
+    });
   }
 
   const columns = [
@@ -93,7 +119,7 @@ function UrlTable() {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <ShimmeredDetailsList
+      <DetailsList
         columns={columns}
         items={urls || []}
         layoutMode={DetailsListLayoutMode.justified}
