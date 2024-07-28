@@ -6,12 +6,10 @@ import Protected from "./components/Protected.jsx";
 import Profile from "./pages/Profile.jsx";
 import OpenRoute from "./components/OpenRoute.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { initializeIcons } from "@fluentui/react/lib/Icons";
-initializeIcons();
 
 function App() {
   return (
-    <div>
+    <div style={{width:"100vw",height:"100vh",backgroundColor:"#f0f0f5", overflowX:"hidden"}}>
       <div>
         <Routes>
           <Route index element={<Home />} />
