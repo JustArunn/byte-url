@@ -1,8 +1,17 @@
-# React + Vite
+# Byte URL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Great tool for shortening a long URL in just few character.
 
-Currently, two official plugins are available:
+### Preview 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img width="946" alt="image" src="https://github.com/user-attachments/assets/f9e1dc12-7252-4295-b64a-3c73c9dc41a1">
+
+### Tech stack used:
+- ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)
+- ![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
+- ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white)
+- ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+
+
+
+
