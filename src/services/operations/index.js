@@ -18,10 +18,15 @@ export const getDetailListFormat = (urls) => {
 
 export function createURL(formData, token, resetForm) {
   return async (dispatch) => {
-    Swal.showLoading();
+    Swal.fire({
+      title:"Creating URL..",
+      didOpen:()=>{
+        Swal.showLoading();
+      }
+    })
     const data = await Fetch(endpoints.CREATE_URL_API, "POST", formData, token);
     if (data.success) {
-      Swal.hideLoading();
+      Swal.close();
       const listUrl = getDetailListFormat([data.url]);
       dispatch(addUrl(listUrl[0]));
       Swal.fire({
@@ -33,7 +38,7 @@ export function createURL(formData, token, resetForm) {
       });
       resetForm();
     } else {
-      Swal.hideLoading();
+      Swal.close();
       Swal.fire({
         position: "center",
         icon: "success",
@@ -47,7 +52,12 @@ export function createURL(formData, token, resetForm) {
 
 export function deleteURL(_id, token) {
   return async (dispatch) => {
-    Swal.showLoading();
+    Swal.fire({
+      title:"Deleting URL..",
+      didOpen:()=>{
+        Swal.showLoading();
+      }
+    })
     const data = await Fetch(
       endpoints.DELETE_URL_API,
       "DELETE",
@@ -55,7 +65,7 @@ export function deleteURL(_id, token) {
       token
     );
     if (data.success) {
-      Swal.hideLoading();
+      Swal.close();
       dispatch(removeUrl(_id));
       Swal.fire({
         position: "center",

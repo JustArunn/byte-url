@@ -1,10 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins",sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+/* SWEET ALERT STYLES */
+.swal2-popup {
+  border-radius: 0px !important;
+}
+.swal2-styled {
+  border-radius: 1.5px !important;
+}
+
+.swal2-styled.swal2-confirm {
+  background-color: rgb(0, 120, 212) !important;
+  border: black !important;
+  min-width: 103px !important;
+  max-width: 10px !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+  color: #fff !important;
+
+  &:focus {
+    box-shadow: 0 0 0 1px #151414 !important;
+  }
+}
+
+.swal2-styled.swal2-cancel {
+  border: 1px solid rgb(138, 136, 134) !important;
+  background-color: #ffffff !important;
+  color: black !important;
+  border-radius: -0.75em !important;
+
+  &:focus {
+    box-shadow: 0 0 0 1px #151414 !important;
+  }
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border: 0.25em solid rgb(0, 112, 220) !important;
+}
+.swal2-icon.swal2-success [class^="swal2-success-line"] {
+  background-color: rgb(0, 112, 220) !important;
+}
+
+.swal2-icon.swal2-warning,
+.swal2-icon.swal2-info {
+  border-color: rgb(0, 112, 220) !important;
+  color: rgb(0, 112, 220) !important;
+}
+
+.swal2-confirm,
+.swal2-cancel {
+  padding: 7px 14px !important;
 }

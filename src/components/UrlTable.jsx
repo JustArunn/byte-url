@@ -3,6 +3,7 @@ import {
   DetailsListLayoutMode,
   IconButton,
   ShimmeredDetailsList as DetailsList,
+  SelectionMode,
 } from "@fluentui/react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -19,7 +20,7 @@ function UrlTable() {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "copied",
+      title: "Copied",
       showConfirmButton: false,
       timer: 1000,
     });
@@ -31,9 +32,7 @@ function UrlTable() {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "rgb(0,112,220)",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Delete",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteURL(_id, token)).then(() => {
@@ -55,16 +54,12 @@ function UrlTable() {
       name: "Serial",
       fieldName: "index",
       minWidth: 100,
-      maxWidth: 200,
-      isResizable: true,
     },
     {
       key: "column1",
       name: "URL",
       fieldName: "url",
       minWidth: 250,
-      maxWidth: 300,
-      isResizable: true,
       onRender: (item) => (
         <Link target="_blank" to={item.url}>
           {item.url}
@@ -76,22 +71,17 @@ function UrlTable() {
       name: "Clicks",
       fieldName: "clicks",
       minWidth: 100,
-      maxWidth: 200,
-      isResizable: true,
     },
     {
       key: "column3",
       name: "Create At",
       fieldName: "createdAt",
       minWidth: 100,
-      maxWidth: 200,
-      isResizable: true,
     },
     {
       key: "column4",
       name: "Delete",
       minWidth: 100,
-      maxWidth: 200,
       onRender: (item) => (
         <IconButton
           iconProps={{ iconName: "Delete" }}
@@ -105,7 +95,6 @@ function UrlTable() {
       key: "column5",
       name: "Copy",
       minWidth: 100,
-      maxWidth: 200,
       onRender: (item) => (
         <IconButton
           iconProps={{ iconName: "Copy" }}
@@ -124,6 +113,7 @@ function UrlTable() {
         items={urls || []}
         layoutMode={DetailsListLayoutMode.justified}
         enableShimmer={isUrlLoading}
+        selectionMode={SelectionMode.none}
       />
     </div>
   );

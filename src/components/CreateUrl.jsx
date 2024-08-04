@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createURL } from "../services/operations";
 import { PrimaryButton, TextField } from "@fluentui/react";
+import Swal from "sweetalert2";
 
 function CreateUrl() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,14 @@ function CreateUrl() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(createURL(formData, token, resetForm));
+    if(formData.url === ""){
+      Swal.fire({
+        title:"Please enter a URL",
+        icon: "warning",
+      })
+    }else{
+      dispatch(createURL(formData, token, resetForm));
+    }
   }
 
   return (
