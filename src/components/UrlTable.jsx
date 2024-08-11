@@ -4,16 +4,50 @@ import {
   IconButton,
   ShimmeredDetailsList as DetailsList,
   SelectionMode,
+  Selection,
+  PrimaryButton,
 } from "@fluentui/react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteURL } from "../services/operations";
+import { deleteURL, deleteManyURLs } from "../services/operations";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 function UrlTable() {
+  const [selectedURLs, setSelectedURLs] = useState([]);
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const { urls, isUrlLoading } = useSelector((state) => state.urls);
+
+  const selection = new Selection({
+    onSelectionChanged: () => {
+      const selectedItems = selection.getSelection();
+      const selectedItemsKeys = selectedItems.map((item) => item.key);
+      setSelectedURLs(selectedItemsKeys);
+    },
+  });
+
+  const handleDeleteManyURLs = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteManyURLs(selectedURLs, token)).then(() => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Selected URLs has been deleted.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
+      }
+    });
+  };
 
   function handleCopy(url) {
     navigator.clipboard.writeText(url);
@@ -107,13 +141,38 @@ function UrlTable() {
   ];
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        gap: "20px",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <p>Delete selected URLs &#8594;</p>
+        <PrimaryButton
+          styles={{
+            root: {
+              width: "84.15px",
+            },
+          }}
+          style={{
+            border: `${selectedURLs.length === 0 ? "1px solid black" : "0px"}`,
+          }}
+          onClick={handleDeleteManyURLs}
+          disabled={selectedURLs.length > 0 ? false : true}
+        >
+          Delete
+        </PrimaryButton>
+      </div>
       <DetailsList
         columns={columns}
         items={urls || []}
         layoutMode={DetailsListLayoutMode.justified}
         enableShimmer={isUrlLoading}
-        selectionMode={SelectionMode.none}
+        selection={selection}
+        selectionMode={SelectionMode.multiple}
       />
     </div>
   );

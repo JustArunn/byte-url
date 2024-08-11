@@ -1,6 +1,6 @@
 import { Fetch } from "../../utils/Fetch";
 import { endpoints } from "../apis";
-import { addUrl, removeUrl } from "../../Redux/actions";
+import { addUrl, removeUrl,removeUrls } from "../../Redux/actions";
 import Swal from "sweetalert2";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -67,6 +67,42 @@ export function deleteURL(_id, token) {
     if (data.success) {
       Swal.close();
       dispatch(removeUrl(_id));
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: data.message,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+}
+
+export const deleteManyURLs =(_ids,token)=>{
+  return async (dispatch) => {
+    Swal.fire({
+      title:"Deleting URL..",
+      didOpen:()=>{
+        Swal.showLoading();
+      }
+    })
+    const data = await Fetch(
+      endpoints.DELETE_MANY_URL_API,
+      "DELETE",
+      { _ids: _ids },
+      token
+    );
+    if (data.success) {
+      Swal.close();
+      dispatch(removeUrls(_ids));
       Swal.fire({
         position: "center",
         icon: "success",

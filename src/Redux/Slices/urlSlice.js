@@ -20,11 +20,19 @@ const urlSlice = createSlice({
     removeUrl(state, action) {
       state.urls = state.urls.filter((url) => url._id !== action.payload);
     },
+    removeUrls(state, action){
+      const x = state.urls.filter((x)=>{
+        if(!action.payload.includes(x._id)){
+          return x;
+        }
+      });
+      state.urls = x;
+    },
     setUrlLoading(state, action){
       state.isUrlLoading = action.payload
     }
   },
 });
 
-export const { setUrls, addUrl, removeUrl,setUrlLoading } = urlSlice.actions;
+export const { setUrls, addUrl, removeUrl,removeUrls,setUrlLoading } = urlSlice.actions;
 export default urlSlice.reducer;
